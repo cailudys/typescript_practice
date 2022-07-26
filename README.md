@@ -306,5 +306,37 @@ const cache: Cache = {
 };
 ```
 
-接口可选成员 和只读成员
+# TypeScript中的类
+
+类是用来 描述一类具体对象的抽象成员；
+
+ES6以前JavaScript都是使用 `函数` 配合 `原型` 来模拟实现 `类的功能` （也就是描述一类具体对象）
+
+(那么为什么之前的JavaScript要模拟实现类呢？因为类在其他语言中用处很大，在js中也希望有这样强大的东西使用。)
+
+从ES6开始JavaScript中就有了专门的class 来创建类 （实质是一个语法糖）
+
+TypeScript 不仅可以使用class，还增强了class （增加了访问修饰符，抽象类等）
+
+###### 类在ts中基本的使用如下：
+
+```js
+class Person {
+  // 2.在ts中必须需要明确声明类中拥有的属性。
+  // 3.在类当中声明属性的方式如下：
+  name: string = "init name";
+  // 4.要注意的是类的属性必须在 赋予初始值和在构造器中赋值 两者选其一，不然会有语法报错。
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // 5.添加方法的方式和es6语法完全一样。
+  sayHi(msg: string) {
+    // 在方法中可以使用this访问到当前的实例对象（也就是可以使用当前实例对象的属性）
+    console.log(`I am ${this.name},${msg}`);
+  }
+}
+```
 
