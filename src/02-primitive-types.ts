@@ -20,3 +20,5 @@ const g: undefined = undefined; // 只有这一种情况
 
 // symbol类型比较特殊，直接如下写回标红报错?但我这没有报错
 const h: symbol = Symbol();
+
+export {};

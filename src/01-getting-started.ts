@@ -3,3 +3,5 @@ const hello = (name: string) => {
 };
 
 hello("123");
+
+export {};
