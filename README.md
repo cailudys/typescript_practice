@@ -225,7 +225,7 @@ function stringigy(value: any): string {
 // 注解成any类型，ts就不会对这个变量进行任何的类型检查，所以any 类型时不安全的。
 ```
 
-# 隐式类型推断
+# 隐式类型推断（inference）
 
 在TypeScritp中如果我们没有通过明确的注解去标记一个变量的类型，那么typescript会根据这个变量的使用情况去推断这个变量的使用类型，这样的一种特性就叫做，隐式类型推断。
 
@@ -237,7 +237,7 @@ let foo; // foo变量会被推断为任意类型
 
 建议给每一个变量加上明确的类型
 
-# 类型断言
+# 类型断言 （assertion）
 
 有些特殊的情况下typescript无法推断出具体的类型，而我们作为开发者以及明确知道这个变量到底是什么类型的。
 
@@ -256,4 +256,55 @@ const square = res * res; // 会提示错误
 // 断言有两种写法
 const num1 = res as number; // 推荐使用
 ```
+
+# 接口 （interfaces）
+
+接口的作用：显示的要求我们写出正确的对象传递给函数或者其他地方。（没有显示地要求的话，容易写错，写错了也没提示要运行时才能发现）
+
+可以用来约定对象的结构，我们使用一个接口就必须遵循这个接口全部的约定。接口可以约定一个对象中，应该有哪些成员和这些成员的类型又是什么样的。
+
+```JS
+// // 1.假设我们要传入一个文章对象，在方法中会打印post过来的文章的title和content。
+// // 2.其实post有隐性的要求，要有title属性，还要有content属性。否则可能会出错。
+// function printPost(post) {
+//   console.log(post.title);
+//   console.log(post.content);
+// }
+
+// 3.接口可以帮助我们约束传入函数的对象的结构以及其属性的数据类型。
+// 4. 定义一个接口(接口首字母大写)
+interface Post {
+  title: string;
+  content: string;
+}
+
+// 5.这样就显示地要求我们调用函数的时候按约定传参了。
+function printPost(post: Post) {
+  console.log(post.title);
+  console.log(post.content);
+}
+
+// 这样调用就会直接报错
+printPost({});
+
+// 接口可选成员 和只读成员
+interface Post2 {
+  title: string;
+  content: string;
+  subtitle?: string;
+  readonly summary: string;
+}
+
+// 动态成员
+interface Cache {
+  [prop: string]: string;
+}
+
+const cache: Cache = {
+  foo: "value1",
+  bar: "value2",
+};
+```
+
+接口可选成员 和只读成员
 

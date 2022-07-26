@@ -1,4 +1,4 @@
-// 隐式类型推断
+// 隐式类型推断 (inference)
 export {}; // 确保跟其他示例没有成员冲突
 
 let num = 18; // num变量的类型会被推断为number
