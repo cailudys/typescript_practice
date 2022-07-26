@@ -13,7 +13,7 @@
     /* Language and Environment */
 
     // 也就是说，会把所有的新特性编译成 es2016标准的JavaScript代码。
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ES2015" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
 
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
@@ -91,7 +91,7 @@
 
     /* Type Checking */
     // 表示开启所有严格检查选项；这样对应类型的检查会变得十分严格。
-    "strict": true /* Enable all strict type-checking options. */,
+    "strict": false /* Enable all strict type-checking options. */,
     // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
     // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
