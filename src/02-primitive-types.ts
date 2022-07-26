@@ -9,7 +9,7 @@ const b: number = 100; // NaN Infinity
 const c: boolean = true; // false
 
 // TypeScript中，在关闭严格模式的情况下， string，number，boolean这三种原始数据类型允许值为 null 和 undefined。
-const d: string = null;
+// const d: string = null;
 
 // 在严格模式下void类型的值只能是 undefined
 const e: void = undefined; // null
