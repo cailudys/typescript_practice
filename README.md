@@ -76,7 +76,7 @@ TypeScript会检查代码中的类型异常，输出到终端。并且会把ts�
 
 > 当我们 tsc 某个文件时 配置文件 是没被使用的，只有编译整个项目的时候，tsc配置文件才会自动生效
 
-# TypeScript 原始数据类型（primitive）
+# TypeScript 原始数据类型注解（primitive）
 
 ```js
 /**
@@ -109,7 +109,7 @@ const h: symbol = Symbol()
 
 工作中js文件一般都是以模块的形式工作的，所有一般不会遇到这个问题。我们可以在最后面加上 export { } 来规避这个问题。
 
-# TypeScript中的object类型
+# TypeScript中的object类型注解
 
 1. TypeScript中的object类型 不单指普通的对象类型， 而是泛指所有的非原始类型
 
@@ -119,7 +119,7 @@ const h: symbol = Symbol()
 
    `const obj: { foo: number } = { foo: 1 }`
 
-# TypeScript中的array类型
+# TypeScript中的array类型注解
 
 TypeScript中两种定义数组类型的方式：
 
@@ -129,13 +129,13 @@ TypeScript中两种定义数组类型的方式：
 
 `const arr2: number[] = [1, 2, 3];`
 
-# TypeScript中的元组类型
+# TypeScript中的元组类型注解
 
 元组 指的 就是明确元素数量，以及每个元素类型的数组
 
 `const tuple: [number, string] = [18, "xiaohong"];`
 
-# TypeScript中的枚举类型
+# TypeScript中的枚举类型注解
 
   枚举类型可以给一组数值取上一个更好的名字；一个枚举中只会存在几个固定的值，不存在超出范围的可能性。
 
@@ -181,9 +181,17 @@ const post = {
 };
 ```
 
-# TypeScript对函数进行类型约束
+# TypeScript中的函数类型注解
 
-TypeScript中对函数的类型约束，就是对函数的输入输出进行约束
+有两种方式：1.是注解函数类型的变量 2.是对函数的入参和返回值进行注解
+
+TypeScript中对函数的类型约束，`(a: number, b: number) => string`  就是函数类型，约束了入参和返回值的数据类型。
+
+```js
+const fun4: `(a: number, b: number) => string` = function (a: number, b: number ): string {
+  return "func2";
+};
+```
 
 ```js
 // ===========对函数声明进行类型限制==============================
@@ -202,10 +210,31 @@ function fun3(a: number, b: number, c: number = 10): string {
 }
 
 // ===========对函数表达式进行类型限制==============================
-const fun4: (a: number, b: number) => string = function (
-  a: number,
-  b: number
-): string {
+const fun4: `(a: number, b: number) => string` = function (a: number, b: number ): string {
   return "func2";
 };
 ```
+
+# TypeScript中的任意类型注解
+
+```js
+function stringigy(value: any): string {
+  return JSON.stringify(value);
+}
+
+// 注解成any类型，ts就不会对这个变量进行任何的类型检查，所以any 类型时不安全的。
+```
+
+# 隐式类型推断
+
+在TypeScritp中如果我们没有通过明确的注解去标记一个变量的类型，那么typescript会根据这个变量的使用情况去推断这个变量的使用类型，这样的一种特性就叫做，隐式类型推断。
+
+```js
+let num = 18; // num变量的类型会被推断为number
+
+let foo; // foo变量会被推断为任意类型
+```
+
+建议给每一个变量加上明确的类型
+
+# 类型断言

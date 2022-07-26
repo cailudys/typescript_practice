@@ -17,9 +17,6 @@ function fun3(a: number, b: number, c: number = 10): string {
 }
 
 // ===========对函数表达式进行类型限制==============================
-const fun4: (a: number, b: number) => string = function (
-  a: number,
-  b: number
-): string {
+const fun4: (a: number, b: number) => string = function (a, b) {
   return "func2";
 };
