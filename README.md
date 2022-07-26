@@ -47,9 +47,165 @@ JavaScript 是一种 弱类型 也是 动态类型的语言。（这样也就丢
 # TypeScript 介绍
 
 ![TypeScript 介绍](public/TypeScript%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
-TypeScript 是是 JavaScript 的超集。（最终执行的时候 TypeScript 代码还是会被转化成标准的 JavaScript 代码)
+TypeScript 是是 JavaScript 的超集。（最终执行的时候TypeScript 代码还是会被转化成标准的JavaScript代码)
 
-1. TypeScript 弥补了 JavaScript 语言中类型系统的不足之处（也有其他方案来弥补这个不足，TypeScript 是其中最优解)。使用 TypeScript 可以大大提高代码的可靠程度。
-2. 使用 TypeScript 可以直接使用 ES6+新特性，因为 TypeScript 会把新特性，转化为标准的 JavaScript 代码执行。（不使用 typescript 的话，老环境的代码，继续添加功能可能还是用不了新特性）
+1. TypeScript弥补了 JavaScript 语言中类型系统的不足之处（也有其他方案来弥补这个不足，TypeScript 是其中最优解)。使用 TypeScript 可以大大提高代码的可靠程度。
+2. 使用TypeScript可以直接使用ES6+新特性，因为TypeScript会把新特性，转化为标准的JavaScript代码执行。（不使用typescript的话，老环境的代码，继续添加功能可能还是用不了新特性）
 
-任何一种 JavaScript 环境下的运行程序，都可以使用 TypeScript 去开发。对比 Flow，TypeScript 功能更强大，生态也更健全、更完善。
+任何一种JavaScript环境下的运行程序，都可以使用TypeScript去开发。对比Flow，TypeScript功能更强大，生态也更健全、更完善。
+
+# TypeScript 的基本使用
+
+1、 建一个项目文件夹，在这个项目中，使用 `yarn init --yes` 命令，初始化一个`package.json`文件来管理项目依赖。
+
+2、然后使用`yarn add typescript --dev`命令 ，安装typescript开发依赖。
+
+​		安装之后在 `node_modules` 目录下 的 `bin` 文件夹中多了一个`tsc`命令；`tsc`命令作用就是帮助我们去编译typescript代码的。
+
+###### 使用tsc执行ts代码
+
+执行 `tsc 01-getting-started.ts`命令，发现会在根目录下生成一个同名js文件。（js文件就是ts文件编译过来的）
+
+###### 编译过程
+
+TypeScript会检查代码中的类型异常，输出到终端。并且会把ts代码编译成标准的JavaScript (ES3)代码，支持所有ES6+的新特性，在这个编译过程中与类型约束相关的拓展代码会被完全移除掉。
+
+# TypeScript 的配置文件
+
+通过 `yarn tsc --init` 命令，初始化一个ts的配置文件。具体的配置详情，直接在配置文件中查阅。
+
+> 当我们 tsc 某个文件时 配置文件 是没被使用的，只有编译整个项目的时候，tsc配置文件才会自动生效
+
+# TypeScript 原始数据类型（primitive）
+
+```js
+/**
+ * 原始数据类型
+ */
+
+const a: string = "foobar";
+
+const b: number = 100; // NaN Infinity
+
+const c: boolean = true; // false
+
+// TypeScript中，在关闭严格模式的情况下， string，number，boolean这三种原始数据类型允许值为 null 和 undefined。
+const d: string = null;
+
+// 在严格模式下void类型的值只能是 undefined
+const e: void = undefined; // null
+
+const f: null = null; // 只有这一种情况
+
+const g: undefined = undefined; // 只有这一种情况
+
+// symbol类型比较特殊，直接如下写回标红报错?但我这没有报错
+const h: symbol = Symbol()
+```
+
+# TypeScript 作用域问题
+
+ 也就是不同文件中使用相同的变量会标红报错的问题
+
+工作中js文件一般都是以模块的形式工作的，所有一般不会遇到这个问题。我们可以在最后面加上 export { } 来规避这个问题。
+
+# TypeScript中的object类型
+
+1. TypeScript中的object类型 不单指普通的对象类型， 而是泛指所有的非原始类型
+
+   `const foo: object = function () {}; // [] || {}`
+
+2. 如果只要约束为普通对象类型，那么虽然可以用对象字面量来约束，但更专业的是使用接口来约束。
+
+   `const obj: { foo: number } = { foo: 1 }`
+
+# TypeScript中的array类型
+
+TypeScript中两种定义数组类型的方式：
+
+// 这种方式被称为array泛型，约束的是纯数字组成的数组。不限定成员个数
+
+`const arr1: Array<number> = [1, 2, 3];`
+
+`const arr2: number[] = [1, 2, 3];`
+
+# TypeScript中的元组类型
+
+元组 指的 就是明确元素数量，以及每个元素类型的数组
+
+`const tuple: [number, string] = [18, "xiaohong"];`
+
+# TypeScript中的枚举类型
+
+  枚举类型可以给一组数值取上一个更好的名字；一个枚举中只会存在几个固定的值，不存在超出范围的可能性。
+
+```js
+//枚举的特性：枚举可以通过键去获取值，也可以通过值去获取键
+
+// 假设一个东西有三个状态，我们可以使用 0，1，2来表示这种状态。
+// 但是直接使用0，1，2来表示会有问题：比如时间长了会搞不清楚这3个值代表什么意思，也可能引入其他值
+// 所以在JavaScript中我们常用的方法就是定义一个对象来管理这3个值，这样就不容易出错，也方便阅读。如下所示
+const PostStateus = {
+  Draft: 0,
+  Unpublished: 1,
+  Published: 2,
+};
+
+// 在TypeScript中有专门的数据类型： 枚举 来处理这个场景。如下所示
+// 如果不指定值，会从0开始累加；如果给第一个属性指定一个数字，则会在这个数字基础上进行累加。
+enum PostStateus2 {
+  Draft,
+  Unpublished,
+  Published,
+}
+
+// 如果值为字符串（则无法自动赋值），那就得手动为每个属性都赋值。【不常见】
+enum PostStateus3 {
+  Draft = "aaa",
+  Unpublished = "bbb",
+  Published = "ccc",
+}
+
+// 1.枚举的创建
+// 建议使用常量枚举，这样不会侵入js代码。（不使用常量枚举会侵入js代码）
+const enum PostStateus4 {
+  Draft,
+  Unpublished,
+  Published,
+}
+
+// 2.使用创建好的枚举类型
+const post = {
+  title: "",
+  status: PostStateus4.Draft,
+};
+```
+
+# TypeScript对函数进行类型约束
+
+TypeScript中对函数的类型约束，就是对函数的输入输出进行约束
+
+```js
+// ===========对函数声明进行类型限制==============================
+// 1.对函数声明 进行类型注解(这样的函数调用时必须传2个参数且参数类型都是number)
+function fun1(a: number, b: number): string {
+  return "fun1";
+}
+
+// 2.1定义一个可选参数 【2种方法】（这样的函数调用时必须传2个或3个参数，第三个参数可选）
+function fun2(a: number, b: number, c?: number): string {
+  return "fun1";
+}
+// 2.2给c形参一个默认值，这样调用函数的时候可以不传第三个参数
+function fun3(a: number, b: number, c: number = 10): string {
+  return "fun1";
+}
+
+// ===========对函数表达式进行类型限制==============================
+const fun4: (a: number, b: number) => string = function (
+  a: number,
+  b: number
+): string {
+  return "func2";
+};
+```
