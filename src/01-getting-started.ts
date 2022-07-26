@@ -2,4 +2,4 @@ const hello = (name: string) => {
   console.log(name);
 };
 
-hello(123);
+hello("123");
