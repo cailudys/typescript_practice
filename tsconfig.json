@@ -12,10 +12,15 @@
 
     /* Language and Environment */
 
-    // 也就是说，会把所有的新特性编译成 es2016标准的JavaScript代码。
-    "target": "ES2015" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    // 也就是说，会把所有的新特性编译成 es5标准的JavaScript代码。
+    "target": "ES5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
 
-    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    // lib配置项，是用来指定程序引用的JavaScript标准库的版本。此处设置了之后回覆盖默认的许多标准库。
+    // 标准库指的就是内置对象所对应的声明，使用内置对象就必须使用一个响应的标准库，否则ts找不到所对应的类型。
+    "lib": [
+      "ES2015",
+      "DOM"
+    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     // "jsx": "preserve",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
     // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
