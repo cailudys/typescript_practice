@@ -257,7 +257,7 @@ const square = res * res; // 会提示错误
 const num1 = res as number; // 推荐使用
 ```
 
-# 接口 （interfaces）
+# TypeScript中接口 （interfaces）
 
 接口的作用：显示的要求我们写出正确的对象传递给函数或者其他地方。（没有显示地要求的话，容易写错，写错了也没提示要运行时才能发现）
 
@@ -376,6 +376,102 @@ class Student extends Person {
     console.log(this.age);
     // 这里不会报错
     console.log(this.gender);
+  }
+}
+```
+
+###### 类中的只读属性
+
+```js
+class Person {
+  public name: string = "init name";
+  // readonly 只读属性，属性一旦设置就不能被修改 （只读属性 是写在 属性修饰符后面的）
+  protected readonly gender: boolean;
+  private age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+    this.gender = true;
+  }
+
+  sayHi(msg: string) {
+    console.log(`I am ${this.name},${msg}`);
+  }
+}
+```
+
+###### 用接口去抽象出类与类之间相同的特性
+
+类与类之间也会有一些共同的特征，对于这些公共的特征，我们一般会用接口去抽象。
+
+```js
+class Person {
+  eat(food: string): void {
+    console.log(`优雅的进餐：${food}`);
+  }
+  run(distance: number) {
+    console.log(`直立行走：${distance}`);
+  }
+}
+
+class Animal {
+  eat(food: string): void {
+    console.log(`呼噜呼噜的吃：${food}`);
+  }
+  run(distance: number) {
+    console.log(`爬行：${distance}`);
+  }
+}
+
+// 上面两个ts类，有相同的特性，但又不完全一样。所以应该不能定义公共的父类。
+// 这个时候应该用接口来约束他俩之间公共的能力。
+```
+
+###### 用接口去约束两个类之间功能的能力，做到了之约束能力，没有约束实现,可以有很多不同的实现。
+
+```js
+// 用接口去约束两个类之间功能的能力，做到了之约束能力，没有约束实现,可以有很多不同的实现。
+interface EatAndRun {
+  eat(food: string): void;
+  run(distance: number): void;
+}
+```
+
+ 使用 implements 来实现接口
+
+```js
+// 使用 implements 来实现接口
+// 换句话说，实现某个接口的类，需要实现接口里定义的所有内容，否则会有语法层面的报错。(可以有效防止漏写)
+// 优点也是在于会有语法层面的报错，可以提示开发者，有时还可以使用快捷处理完成错误处理。
+class Person implements EatAndRun {
+  eat(food: string): void {
+    throw new Error("Method not implemented.");
+  }
+  run(distance: number): void {
+    throw new Error("Method not implemented.");
+  }
+}
+```
+
+###### 类---定义接口和使用接口的最佳实践
+
+```js
+// 更合理的是，一个接口只约束一个能力。实现接口是可以同时实现需要的接口。
+interface Eat {
+  eat(food: string): void;
+}
+
+interface Run {
+  run(distance: number): void;
+}
+
+// 实现接口的时候用逗号的方式，同时实现多个接口
+class Person implements Eat, Run {
+  eat(food: string): void {
+    throw new Error("Method not implemented.");
+  }
+  run(distance: number): void {
+    throw new Error("Method not implemented.");
   }
 }
 ```
