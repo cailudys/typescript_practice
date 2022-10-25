@@ -294,7 +294,7 @@ type UnpackedFn<T> = T extends (...args:any[])=> infer U ? U : T
 
 ##### ② 在泛型当中用extends来做约束
 
-![image-20221021174816451](C:/Users/cailu/Desktop/typescript_practice/public/image-20221021174816451.png)
+![image-20221021174816451](public\image-20221021174816451.png)
 
 
 
