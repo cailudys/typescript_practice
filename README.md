@@ -25,7 +25,7 @@ Uppercase、Lowercase、Capitalize、Uncapitalize、pick、Omit、Exclude
 
 作用是选取对象中，被选中的属性，从而形成一个新的类型
 
-![image-20221025104940478](C:\Users\cailu\Desktop\typescript_practice\public\image-20221025104940478.png)
+![image-20221025104940478](public/image-20221025104940478.png)
 
 ###### ②Omit工具类型
 
